@@ -41,3 +41,8 @@ The unit prerequisite that is stored in the MARIE code is as below:
 
 ### Demo:
 A video recording of the application demonstration is attached.
+
+https://github.com/chailam/Assembly-Language/assets/30400152/3877438e-c646-46fc-b43e-68c9c5642f4b
+
+
+
