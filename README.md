@@ -1,5 +1,27 @@
 # Assembly-Language
-The Assembly Language Learnt
+The Assembly Language Learnt (MIPS & MARIE)
+
+## MIPS Assembly Language (Small Tasks)
+### Objective:
+The task involves implementing several small tasks in MIPS assembly language, each corresponding to a specific function. These tasks are initially defined and implemented in Python, then translated into MIPS assembly.
+
+## Tasks:
+
+1. **leap_year**: Determines if a given year is a leap year.   
+
+2. **print_list**: Reads a list's size and elements, then prints every other element.
+3. **print_list_range**: Reads a list's size and elements, then prints the range (difference between maximum and minimum elements).
+4. **count_target_in_list**: Counts the occurrences of a target value in a list.
+5. **min_in_list**: Prints the minimum value in a list.
+6. **count_frequency_within_range**: Prints the frequency of each value between two given values a and b (such that a < b)
+7. **max_in_matrix**: Store a range of temperatures for different cities in a matrix, such that each row represents a city and each column represents a day’s temperature. Then read in the number of days, the number of cities, temperatures for each day and each city, the desired city to print the maximum temperature in such city.
+
+## Instructions:
+
+1. Download and install MARS for MIPS Assembly Language from the provided [link](https://courses.missouristate.edu/kenvollmar/mars/download.htm).
+2. Execute the code using the MARS environment.
+
+
 
 
 ## MARIE Assembly (Simple Database Application)
