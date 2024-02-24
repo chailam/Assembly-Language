@@ -1,0 +1,219 @@
+/ Author: Chai Lam Loi
+
+/ Main program:
+/ infinite loop, asking user for a database query (the name of
+/ a unit), converting it to upper case, searching results,
+/ then asking another query
+
+Forever,   Load StringAddr     / Get start address where string should be stored
+           Store InputAddr     / Store as argument of subroutine
+           Jns InputString     / Execute input subroutine
+           Load StringAddr
+           Store ToUpperStrAddr
+           JnS ToUpper          / Convert user input to upper case
+           Load StringAddr
+           Store SearchStrAddr
+           Load IdxAddr
+		   Store CurrentEntry
+           Jns SearchStr        / Find prerequisites
+           Jump Forever
+
+/ Add all your subroutines and the database data and index below:
+
+PrintString,     HEX 0      / argument: address of string
+Print,           HEX 0      / subroutine start
+
+///
+Loop, LoadI PrintString
+SkipCond 800 / If value is greater than 0, skip next instruction
+Jump isZero
+Output
+Load PrintString
+Add one
+Store PrintString
+Jump Loop /Jump back to Loop
+
+isZero, JumpI Print
+///                
+
+InputAddr,          HEX 0      / argument: address where string
+                               /           will be stored
+InputString,        HEX 0      / subroutine start
+
+///
+Loop1, Input
+Skipcond 400 /If the value in AC is equal to 0, then skip the next instruction
+Jump input
+Jump end
+input, StoreI InputAddr
+Load InputAddr / increase the address
+Add one
+Store InputAddr
+Jump Loop1 / Jump back to loop
+
+end, Load zeroHEX
+StoreI InputAddr
+JumpI InputString
+///
+
+Cmp1,     HEX 0 / Address of first string to compare
+Cmp2,     HEX 0 / Address of second string to compare
+CmpEqual, DEC 0 / Return value: 1 if strings are equal, 0 otherwise
+Cmp,      HEX 0 / Entry point of subroutine (will hold return address)
+
+///
+/ First check if both cmp1 and cmp2 are zero
+Loop2,LoadI Cmp1
+Skipcond 800 /If the cmp1 is greater than 0, then skip the next instruction
+Jump checkSameZero
+
+/ Check for the remaining
+check,LoadI Cmp1
+Store tmp
+LoadI Cmp2
+Subt tmp
+
+/ If both cmp1 and cmp2 are same, continue checking
+Skipcond 400 /If the value in AC is equal to 0, then skip the next instruction
+Jump notEqual
+Load one
+Store CmpEqual
+Load Cmp1
+Add one
+Store Cmp1
+Load Cmp2
+Add one
+Store Cmp2
+Jump Loop2
+
+/ If cmp1 not equal to cmp2, set CmpEqual to 0
+notEqual, Load zero
+Store CmpEqual
+JumpI Cmp
+
+/ check if both cmp1 and cmp2 are zero
+checkSameZero,LoadI Cmp2
+Skipcond 400 /If the cmp2 is equal to 0, then skip the next instruction
+Jump check
+Load one
+Store CmpEqual
+JumpI Cmp
+///
+
+SearchStrAddr, HEX 0 / Address of string to find
+SearchStr,     HEX 0 / Entry point of subroutine (will hold return address)
+               
+///
+Loop3, LoadI CurrentEntry
+SkipCond 800 /If the index is greater than 0, then skip the next instruction
+JumpI SearchStr
+Load SearchStrAddr / Get start address where string should be stored
+Store Cmp1 / Store as address of first string to compare
+Load CurrentEntry 
+Store Cmp2 
+Jns Cmp / Execute the string compare subroutine
+Load CmpEqual
+Skipcond 400 /If CmpEqual is equal to 0(both string not equal), then skip the next instruction.
+Jump Equal
+Load CurrentEntry
+Add IdxEntryLength
+Store CurrentEntry
+Jump Loop3
+
+Equal, Load CurrentEntry
+Add IdxEntryLength
+Subt one
+Store CurrentEntry /address of JnS FITxxxx
+LoadI CurrentEntry /address of prerequisite FITxxxx
+Store PrintString
+JnS Print
+JumpI SearchStr
+///
+
+ToUpperStrAddr, HEX 0 / Address of string to convert to upper case
+ToUpper,        HEX 0 / Entry point of subroutine
+                
+///
+Loop4, LoadI ToUpperStrAddr
+SkipCond 800 /If the value is greater than 0, then skip the next instruction.
+JumpI ToUpper /If smaller than 0, means end of the character
+
+Subt ninetysix
+Skipcond 800 /If the value is greater than 0(lower letter), then skip the next instruction.
+Jump UpperCase
+Jump LowerCase
+
+UpperCase,Load ToUpperStrAddr
+Add one
+Store ToUpperStrAddr
+Jump Loop4
+
+LowerCase,LoadI ToUpperStrAddr
+Subt thirtytwo
+StoreI ToUpperStrAddr
+Jump Loop4
+///
+
+/ The database
+FIT2093, DEC 70  / F
+         DEC 73  / I
+         DEC 84  / T
+         DEC 49  / 1
+         DEC 48  / 0
+         DEC 52  / 4
+         DEC 55  / 7
+         DEC 44  / ,
+         DEC 32  /  
+         DEC 70  / F
+         DEC 73  / I
+         DEC 84  / T
+         DEC 49  / 1
+         DEC 48  / 0
+         DEC 52  / 4
+         DEC 53  / 5
+         DEC 0
+
+FIT2100, DEC 70  / F
+         DEC 73  / I
+         DEC 84  / T
+         DEC 49  / 1
+         DEC 48  / 0
+         DEC 52  / 4
+         DEC 55  / 7
+         DEC 0
+
+/ The database index
+IdxEntryLength, DEC 9     / Length of each index entry
+IdxAddr, JnS Idx
+Idx,     DEC 70  / F
+         DEC 73  / I
+         DEC 84  / T
+         DEC 50  / 2
+         DEC 48  / 0
+         DEC 57  / 9
+         DEC 51  / 3
+         DEC 0
+         JnS FIT2093
+         DEC 70  / F 
+         DEC 73  / I
+         DEC 84  / T
+         DEC 50  / 2
+         DEC 49  / 1
+         DEC 48  / 0
+         DEC 48  / 0
+         DEC 0
+         JnS FIT2100
+         DEC 0            / End of the index
+
+one, DEC 1
+tmp, DEC 0
+zero, DEC 0
+zeroHEX, HEX 0
+ninetysix, DEC 96 /ascii for a is 97
+thirtytwo, DEC 32
+CurrentEntry, HEX 0
+
+/ We put the user input string behind all the other data so that we don't
+/ accidentally overwrite it
+StringAddr, JnS UserInput
+UserInput,  HEX 0
