@@ -1,11 +1,33 @@
 # Assembly-Language
-The Assembly Language Learnt (MIPS & MARIE)
+The Assembly Language Programe including MIPS & MARIE.
 
-## MIPS Assembly Language (Small Tasks)
+## MIPS Assembly Language (Base 64-decoder written in MIPS)
+
 ### Objective:
-The task involves implementing several small tasks in MIPS assembly language, each corresponding to a specific function. These tasks are initially defined and implemented in Python, then translated into MIPS assembly.
+This MIPS program reads lines of Base 64-encoded text from standard input, and outputs the decoded bytes to standard output.
+
+The progam is under folder `MIPS Base64 Decoder`.
+
+### Instructions
+1. Download the program that simulator that runs MIPS32 programs, such as SPIM or MARS.     
+In this example, we are using [MARS](https://courses.missouristate.edu/kenvollmar/mars/).
+2. Change directory to the file directory that contains the MIPS program and run in Command Prompt with format:   
+`java -jar [Location_to_MARS_Simulator] [<]Location_to_MIPS_base64_decoder.asm] < [<]Location to the sample encoded file]`  
+such as    
+`java -jar Mars4_5.jar MIPS_base64_decoder.asm < base64_encoded_file/sample.base64`
+
+
+[screenshot]
+
+
+
+
+## MIPS Assembly Language (Several Tasks)
+### Objective:
+The task involves implementing several tasks in MIPS assembly language, each corresponding to a specific function. These tasks are initially defined and implemented in Python, then translated into MIPS assembly.
 
 ## Tasks:
+The tasks is under folder `MIPS Tasks`.
 
 1. **leap_year**: Determines if a given year is a leap year.   
 
@@ -19,7 +41,7 @@ The task involves implementing several small tasks in MIPS assembly language, ea
 ## Instructions:
 
 1. Download and install MARS for MIPS Assembly Language from the provided [link](https://courses.missouristate.edu/kenvollmar/mars/download.htm).
-2. Execute the code using the MARS environment.
+2. Execute the code in the MARS environment.
 
 
 
@@ -32,6 +54,9 @@ Develop a MARIE application to manage unit prerequisites information. The applic
 The unit prerequisite that is stored in the MARIE code is as below:
 - for FIT2093, the prerequisites are FIT1045 and FIT1047
 - for FIT2100, the prerequisite is FIT1047
+
+The tasks is under folder `MARIE`.
+
 
 ### Instructions:
 1. Utilize any MARIE assembly language supporting application for code execution.
