@@ -17,7 +17,8 @@ such as
 `java -jar Mars4_5.jar MIPS_base64_decoder.asm < base64_encoded_file/sample.base64`
 
 
-[screenshot]
+![MIPS base64 decoder screenshot](./asset/MIPS_base64_decoder_screenshot.png)
+
 
 
 
